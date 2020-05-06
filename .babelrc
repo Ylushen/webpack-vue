@@ -1,0 +1,8 @@
+{
+  "presets": [
+      "@babel/preset-env"
+  ],
+  // 懒加载脚本。返回promise对象
+  // jsonp的方式进行懒加载
+  "plugins": ["@babel/plugin-syntax-dynamic-import"] 
+}
