@@ -2,10 +2,12 @@ const path = require('path')
 const merge = require('webpack-merge')
 const common = require('./webpack.comm')
 const SpeedMeasureWebpackPlugin = require('speed-measure-webpack-plugin') // 分析速度
+// 打印分析图
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 const smp = new SpeedMeasureWebpackPlugin()
 const smpActive = false // 是否打印速度分析日志
+const bapActive = false // 是否生成依赖包图
 
 const rootDirName = process.cwd() // 获取当前活动目录
 const config = {
@@ -30,8 +32,6 @@ const config = {
       }
     }
   },
-  plugins: [
-    new BundleAnalyzerPlugin()
-  ]
+  plugins: [].concat(bapActive ? [new BundleAnalyzerPlugin()] : [])
 }
 module.exports = smpActive ? smp.wrap(merge(common, config)) : merge(common, config)
