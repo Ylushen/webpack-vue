@@ -10,28 +10,32 @@
     "build:stats": "webpack --env production --config ./build/webpack.config --json > stats.json",
     "dev": "webpack-dev-server --env development --config ./build/webpack.config",
     "lint": "eslint ./src --fix",
-    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -w -r 0"
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -w -r 0",
+    "dll": "webpack --config ./build/webpack.dll.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "@commitlint/cli": "^8.3.5",
-    "@commitlint/config-conventional": "^8.3.4",
-    "assert": "^2.0.0",
-    "babel-polyfill": "^6.26.0",
-    "conventional-changelog-cli": "^2.0.31",
+  "dependencies": {
     "element-ui": "^2.13.1",
+    "vue": "^2.6.11"
+  },
+  "devDependencies": {
+    "webpack-bundle-analyzer": "^3.7.0",
+    "file-loader": "^6.0.0",
     "glob-all": "^3.2.1",
+    "hard-source-webpack-plugin": "^0.13.1",
     "husky": "^4.2.5",
     "mocha": "^7.1.2",
     "nyc": "^15.0.1",
     "ora": "^4.0.4",
     "speed-measure-webpack-plugin": "^1.3.3",
-    "vue": "^2.6.11",
-    "webpack-bundle-analyzer": "^3.7.0"
-  },
-  "dependencies": {
+    "terser-webpack-plugin": "^3.0.1",
+    "thread-loader": "^2.1.3",
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.3.4",
+    "assert": "^2.0.0",
+    "conventional-changelog-cli": "^2.0.31",
     "@babel/core": "^7.9.0",
     "@babel/plugin-syntax-dynamic-import": "^7.8.3",
     "@babel/preset-env": "^7.9.5",

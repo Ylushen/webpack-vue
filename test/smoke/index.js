@@ -23,6 +23,7 @@ process.chdir(path.join(__dirname, 'template'));
   console.log('打包完成，开始执行测试用例')
   mocha.addFile(path.join(__dirname, './html-test.js'))
   mocha.addFile(path.join(__dirname, './js-css-test.js'))
+  mocha.addFile(path.join(__dirname, './file-test.js'))
   mocha.run()
 }())
 

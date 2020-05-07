@@ -8,7 +8,6 @@ const path = require('path')
 const glob = require('glob')
 
 
-
 const rootDirName = process.cwd() // 获取当前活动目录
 // 动态加载多也页面配置 规则 .src/分页名/index.js
 const entry = {}
@@ -35,7 +34,14 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: ['babel-loader', 'eslint-loader']
+        // 多进程loader, 页面比较大的时候开启
+        // [{
+        //   loader: 'thread-loader',
+        //   options: {
+        //     workers: 3
+        //   }
+        // }]
+        use: ['babel-loader?cacheDirectory=true', 'eslint-loader'] // 开启缓存
       }, {
         test: /\.less$/,
         use: [
@@ -60,7 +66,14 @@ module.exports = {
           }]
       }, {
         test: /\.(png|jpg|jpeg|gif)$/,
-        use: 'url-loader'
+        use: [{
+          // image-webpack-loader 有问题
+          loader: 'url-loader',
+          options: {
+            limit: 10000,
+            name: 'imgs/[name]_[hash:5].[ext]' // file-loader打包地址
+          }
+        }]
       }, {
         test: /\.(ttf|eot|svg|woff|woff2)$/,
         use: 'url-loader'

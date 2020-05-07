@@ -55,7 +55,7 @@
     <body>
     <BLANK LINE>
     <footer>
-
+* build: 构建工具或构建过程等的变动，如：关联包升级等
 * upd：更新某功能（不是 feat, 不是 fix）
 * feat：新功能（feature）
 * fix：修补bug
