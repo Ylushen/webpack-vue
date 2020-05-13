@@ -1,8 +1,17 @@
 {
   "presets": [
-      "@babel/preset-env"
+    [
+      "@babel/preset-env",
+      {
+        "corejs": "2", // <---  此处加个这个，就没有报错警告了
+        "useBuiltIns": "usage" // 安装一个@babel/polyfill 支持sync
+      }
+    ]
   ],
   // 懒加载脚本。返回promise对象
   // jsonp的方式进行懒加载
-  "plugins": ["@babel/plugin-syntax-dynamic-import"] 
+  "plugins": [
+    "@babel/plugin-syntax-dynamic-import",
+    "@babel/plugin-proposal-optional-chaining" // ?.写法
+  ]
 }

@@ -1,19 +1,11 @@
 <template>
-  <div id="app-wrapper"></div>
+  <div id="app-wrapper">
+    <router-view />
+  </div>
 </template>
 <script>
 export default {
-  name: 'Layout',
-  data() {
-    return {
-
-    }
-  },
-  methods: {
-    bbb() {
-      import('../../../utils/index').then(res => res.default())
-    }
-  }
+  name: 'Layout'
 }
 </script>
 <style lang="less" scoped>
@@ -21,7 +13,7 @@ export default {
   width: 100vw;
   height: 100vh;
   position: relative;
-  background-color: antiquewhite;
+  overflow: auto;
 }
 #app-wrapper::after {
   content: "";

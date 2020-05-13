@@ -1,7 +1,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const merge = require('webpack-merge')
-const common = require('./webpack.comm')
+const common = require('./webpack.comm')()
 const config = {
   output: {
     path: path.join(__dirname, 'dist'),
@@ -10,7 +10,13 @@ const config = {
   devServer: {
     contentBase: path.join(__dirname, '../dist'),
     compress: true,
-    port: 9000
+    port: 8080,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:9999',
+        pathRewrite: { '^/api': '' }
+      }
+    }
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin() // 热更新替换
