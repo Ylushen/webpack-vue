@@ -3,7 +3,6 @@
     <div class="ls-layout_header ls-display_l_c">
       <slot name="layout_header"></slot>
     </div>
-    <el-divider></el-divider>
     <div class="ls-table">
       <div class="ls-table_header">
         <div>
@@ -13,7 +12,18 @@
           <slot name="table-header_right"></slot>
         </div>
       </div>
-      <el-table v-bind="$attrs" :border="border" :size="size" v-on="$listeners">
+      <card-table v-if="type === 'card'" :table-loading="tableLoading" v-bind="$attrs" v-on="$listeners">
+        <template #default="scope">
+          <slot v-bind="scope" />
+        </template>
+        <template #prepend>
+          <slot name="prepend" />
+        </template>
+        <template #append>
+          <slot name="append" />
+        </template>
+      </card-table>
+      <el-table v-else v-loading="tableLoading" v-bind="$attrs" :border="border" :size="size" v-on="$listeners">
         <template v-for="(header, index) in headers">
           <tableColumn :key="index" v-bind="header">
             <template v-if="header.slotName" v-slot="slotProps">
@@ -27,13 +37,14 @@
     <div class="ls-display_center">
       <el-pagination
         v-if="pagination"
+        background
         :page-size="pageConfig.size"
         :current-page.sync="pageConfig.current"
-        layout="total, sizes, prev, pager, next, jumper"
+        layout="prev, pager, next, sizes"
         :total="pageConfig.total"
         @current-change="currentChange"
         @size-change="sizeChange"
-      ></el-pagination>
+      />
       <slot name="layout_footer"></slot>
     </div>
   </div>
@@ -41,10 +52,15 @@
 
 <script>
 import tableColumn from './tableColumn'
+import cardTable from '../cardTable'
 export default {
   name: 'LsTableLayout',
-  components: { tableColumn },
+  components: { tableColumn, cardTable },
   props: {
+    type: {
+      type: String,
+      default: 'table'
+    },
     headers: {
       type: Array,
       default() {
@@ -72,11 +88,11 @@ export default {
           total: 0
         }
       }
-    }
+    },
+    tableLoading: Boolean
   },
   methods: {
     currentChange(current) {
-      console.log('变化')
       this.$emit('page-current-change', current)
     },
     sizeChange(size) {
@@ -95,16 +111,16 @@ export default {
   position: relative;
 
   .ls-layout_header {
-    min-height: 80px;
     width: 100%;
-    padding: 10px;
-    background-color: #eee;
+    background-color: #fff;
+    margin-bottom: 10px;
   }
   .ls-layout_header /deep/.el-form-item {
     margin-bottom: 0;
   }
 
   .ls-table {
+    background-color: #fff;
     .ls-table_header {
       width: 100%;
       display: flex;

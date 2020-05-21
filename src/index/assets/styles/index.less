@@ -1,14 +1,16 @@
+@import "vars";
 body {
   margin: 0;
   padding: 0;
 }
 * {
   box-sizing: border-box;
+  outline: none;
 }
 .ls-display_center {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
 }
 .ls-display_l_c {
@@ -16,4 +18,17 @@ body {
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: center;
+}
+
+.clear-fix:after{
+  content: ".";
+  display: none;
+  visibility: hidden;
+  opacity: 0;
+  height: 0;
+  clear: both;
+}
+
+.page-app {
+  background-color: @pageItemBgColor;
 }

@@ -1,6 +1,7 @@
 <template>
-  <div>
+  <div class="page-app">
     <ls-table-layout
+      :table-loading="Mixin_TableLoading"
       :data="Mixin_TableData"
       :page-config="Mixin_PageConfig"
       :pagination="Mixin_Pagination"
@@ -33,7 +34,7 @@
     >
       <ls-form
         label-width="auto"
-        :model="Mixin_DialogForm"
+        :model.sync="Mixin_DialogForm"
         :headers="DialogFormHeaders"
         @cancel="Mixin_DialogVisible = false"
         @submit="Mixin_Submit"
@@ -49,10 +50,10 @@
 </template>
 <script>
 import Mixin from '@/mixins'
-import ApiObject from '../Api/test'
+import ApiObject from '../../../Api/test'
 
 export default {
-  name: 'Home',
+  name: 'Table',
   mixins: [Mixin],
   data() {
     return {
@@ -69,7 +70,7 @@ export default {
         { label: '时间', slotName: 'createTime' },
         { label: '状态', prop: 'status', format: { '1': '启用', '0': '停用' }},
         { label: '方法', prop: 'createTime', format: (row, header) => (row.createTime + '：func') },
-        { label: '操作', slotName: 'operate' }
+        { label: '操作', slotName: 'operate', width: 180 }
       ],
       QueryFormHeaders: [
         { label: '姓名', prop: 'name' }
@@ -88,8 +89,3 @@ export default {
   }
 }
 </script>
-<style lang="less" scoped>
-  /deep/ .home-table_index {
-    background-color: #eee;
-  }
-</style>

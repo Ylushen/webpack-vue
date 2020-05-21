@@ -4,6 +4,7 @@ export default {
       Mixin_TableData: [],
       Mixin_QueryForm: {},
       Mixin_Pagination: true,
+      Mixin_TableLoading: false,
       Mixin_PageConfig: {
         size: 10, // 分页大小
         current: 1, // 当前页
@@ -20,14 +21,28 @@ export default {
   },
   methods: {
     async Mixin_Init() {
-      const res = await this.Mixin_PageApi.call(this.ApiObject, this.getSearchForm())
-      this.Mixin_PageConfig.total = res?.data?.total
-      this.Mixin_TableData = res?.data?.tableData
+      await this.Mixin_Page()
       this.Mixin_InitAfter()
     },
     async Mixin_Del(row) {
+      await this.$confirm('此操作将永久删除该数据, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      })
       const res = await this.Mixin_DelApi.call(this.ApiObject, row.id)
       this.$message.success(res.message)
+      this.Mixin_Init()
+    },
+    async Mixin_Page() {
+      this.Mixin_TableLoading = true
+      try {
+        const res = await this.Mixin_PageApi.call(this.ApiObject, this.getSearchForm())
+        this.Mixin_PageConfig.total = res?.data?.total
+        this.Mixin_TableData = res?.data?.tableData
+      } finally {
+        this.Mixin_TableLoading = false
+      }
     },
     // 分页长度改变
     Mixin_SizeChange(val) {

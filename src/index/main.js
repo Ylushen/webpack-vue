@@ -11,9 +11,11 @@ Vue.config.devtools = process.env.NODE_ENV === 'development'
 import router from './router'
 import store from './store'
 
+import './Authority'
+
 new Vue({
   el: '#app',
   router,
   store,
   render: h => h(app)
-}).$mount()
+})

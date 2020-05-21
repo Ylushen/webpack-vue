@@ -1,60 +1,35 @@
 import VueRouter from 'vue-router'
 import Vue from 'vue'
+import routes from './modules'
 
 Vue.use(VueRouter)
 
+export const privateRoutes = routes
+// 公共页面
+const publicRoutes = [
+  {
+    path: '/',
+    component: () => import('../page/layout'),
+    redirect: '/home',
+    name: '首页',
+    icon: 'el-icon-s-home',
+    children: [
+      {
+        path: '/home',
+        component: () => import('../page/home'),
+        name: '首页'
+      }
+    ]
+  },
+  {
+    path: '/login',
+    component: () => import('../page/login'),
+    hidden: true
+  }
+]
+
 export default new VueRouter({
-  routes: [
-    {
-      path: '/',
-      component: () => import('../page/layout/index'),
-      redirect: '/home',
-      name: '测试模块',
-      icon: 'el-icon-delete',
-      children: [
-        {
-          path: 'home',
-          icon: 'el-icon-delete',
-          component: () => import('../page/home'),
-          name: '测试页'
-        },
-        {
-          path: 'home1',
-          icon: 'el-icon-delete',
-          component: () => import('../page/home'),
-          name: '测试页1'
-        },
-        {
-          path: 'home2',
-          component: () => import('../page/home'),
-          name: '测试页2'
-        }
-      ]
-    },
-    {
-      path: '/module',
-      component: () => import('../page/layout/index'),
-      name: '测试模块2',
-      icon: 'el-icon-delete',
-      children: [
-        {
-          path: 'home',
-          component: () => import('../page/home'),
-          name: '测试页'
-        },
-        {
-          path: 'home1',
-          component: () => import('../page/home'),
-          name: '测试页1'
-        },
-        {
-          path: 'home2',
-          component: () => import('../page/home'),
-          name: '测试页2'
-        }
-      ]
-    }
-  ]
+  routes: [...publicRoutes, ...privateRoutes]
 })
 
 

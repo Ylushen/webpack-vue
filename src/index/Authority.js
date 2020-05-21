@@ -1,0 +1,17 @@
+import router from './router'
+import { privateRoutes } from './router'
+import NProgress from 'nprogress' // Progress 进度条
+import 'nprogress/nprogress.css'// Progress 进度条样式
+
+NProgress.configure({ showSpinner: false })// NProgress Configuration
+
+
+const routerPath = privateRoutes
+console.log(routerPath)
+router.beforeEach((to, from, next) => {
+  NProgress.start()
+  next()
+})
+router.afterEach(_ => {
+  NProgress.done() // 结束Progress
+})

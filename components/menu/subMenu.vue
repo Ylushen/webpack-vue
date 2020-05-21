@@ -1,6 +1,6 @@
 <template>
-  <div class="ls-sub_menu">
-    <template v-if="!menuData.children">
+  <div v-if="!menuData.hidden" class="ls-sub_menu">
+    <template v-if="checkChildren(menuData)">
       <el-menu-item :index="resolvePath(menuData.path)" v-bind="menuData.props">
         <i :class="menuData.icon" />
         <span slot="title">{{ menuData.name }}</span>
@@ -43,6 +43,11 @@ export default {
   methods: {
     resolvePath(routePath) {
       return path.resolve(this.basePath, routePath)
+    },
+    // 校验是否渲染下级菜单
+    checkChildren(menuData) {
+      if (!menuData.children) return true
+      if (menuData?.children?.length === 1) return true
     }
   }
 }

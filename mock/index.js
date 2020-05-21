@@ -29,7 +29,7 @@ const success = {
   message: '操作成功'
 }
 app.get('/test/page', function(req, res) {
-  console.log(req.query)
+  console.log(`/test/page: ${req.query}`)
   setTimeout(_ => res.send({ ...success, data: pageData(req.query && req.query.size) }), 500)
 })
 app.post('/test', function(req, res) {

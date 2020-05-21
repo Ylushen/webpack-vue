@@ -5,6 +5,8 @@ import form from './form'
 import dialog from './dialog'
 import select from './select'
 import menu from './menu'
+import cardTable from './cardTable'
+import echarts from './echarts'
 
 const components = [
   tableLayout,
@@ -13,7 +15,9 @@ const components = [
   form,
   dialog,
   select,
-  menu
+  menu,
+  cardTable,
+  echarts
 ]
 
 const install = function(Vue) {

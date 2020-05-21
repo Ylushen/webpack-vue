@@ -44,6 +44,11 @@ export default {
     return {
       form: this.model
     }
+  },
+  watch: {
+    model(newVal) {
+      this.form = newVal
+    }
   }
 }
 </script>

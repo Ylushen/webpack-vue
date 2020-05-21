@@ -3,11 +3,11 @@
     <transition name="sidebarLogoFade">
       <router-link v-if="collapse" class="ls-display_center" to="/" tag="div">
         <img v-if="logo" :src="logo" alt="logo信息" class="layout-logo_img">
-        <span v-else class="layout-logo_title el-message-box__title">我是标题</span>
+        <span v-else class="layout-logo_title el-message-box__title" :style="{color: textColor}">我是标题</span>
       </router-link>
       <router-link v-else to="/" class="ls-display_center">
         <img v-if="logo" :src="logo" alt="logo信息" class="layout-logo_img">
-        <span class="layout-logo_title el-message-box__title">我是标题</span>
+        <span class="layout-logo_title el-message-box__title" :style="{color: textColor}">我是标题</span>
       </router-link>
     </transition>
   </div>
@@ -19,7 +19,8 @@ import logo from '@/assets/images/logo.png'
 export default {
   name: 'MenuLogo',
   props: {
-    collapse: Boolean
+    collapse: Boolean,
+    textColor: String
   },
   data() {
     return {
@@ -33,7 +34,7 @@ export default {
   @import "../../assets/styles/vars";
 
   .sidebarLogoFade-enter-active {
-    transition: .5s;
+    transition: transform .5s, opacity .5s;
   }
 
   .sidebarLogoFade-enter,
@@ -45,9 +46,14 @@ export default {
   .ls-layout-logo /deep/ .router-link-active {
     text-decoration: none;
   }
+  /deep/.layout-menu_hide .ls-layout-logo {
+    width: @menuHideWidth;
+  }
+  /deep/.layout-menu_show .ls-layout-logo {
+    width: @menuShowWidth;
+  }
 
   .ls-layout-logo {
-    width: 100%;
     height: @LogoHeight;
     display: flex;
     flex-wrap: wrap;

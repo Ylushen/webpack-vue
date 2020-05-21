@@ -67,6 +67,9 @@ export default {
     },
     clearValidate() {
       this.$refs.form.clearValidate()
+    },
+    validate(callback) {
+      this.$refs.form.validate(callback)
     }
   }
 }

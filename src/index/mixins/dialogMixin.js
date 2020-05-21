@@ -13,7 +13,9 @@ export default {
   methods: {
     // 编辑调用方法
     async Mixin_Edit(row) {
+      console.log(row)
       this.Mixin_DialogForm = { ...row }
+      console.log(this.Mixin_DialogForm)
       this.Mixin_DialogVisible = true
     },
     // 新增调用方法

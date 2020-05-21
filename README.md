@@ -7,3 +7,5 @@
   ```html
   <script src="https://polyfill.io/v3/polyfill.min.js"></script>
   ```
+## 使用文档
+  https://www.sixgodgod.com/YlushenUI/
